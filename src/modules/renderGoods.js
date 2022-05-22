@@ -1,5 +1,12 @@
 const renderGoods = (goods) => {
     const goodsWrapper = document.querySelector('.goods')
+    const goodsCountCart = document.querySelector('.counter')
+
+    //метка над корзиной
+    const cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []
+    goodsCountCart.textContent = cart.length
+
+    localStorage.setItem('goods', JSON.stringify(goods))
 
     goodsWrapper.innerHTML = ''
 
@@ -7,10 +14,8 @@ const renderGoods = (goods) => {
         goodsWrapper.insertAdjacentHTML('beforeend', `
 
         <div class="col-12 col-md-6 col-lg-4 col-xl-3">
-            <div class="card">
-                ${goodsItem.sale ? '<div class="card-sale">🔥Hot Sale🔥</div>' : ''}
-    
-                
+            <div class="card" data-key="${goodsItem.id}">
+                ${goodsItem.sale ? '<div class="card-sale">🔥Hot Sale🔥</div>' : ''}                
                 <div class="card-img-wrapper">
             <span class="card-img-top"
                 style="background-image: url('${goodsItem.img}')"></span>
@@ -24,5 +29,6 @@ const renderGoods = (goods) => {
 		</div >
     `)
     });
+
 }
 export default renderGoods
